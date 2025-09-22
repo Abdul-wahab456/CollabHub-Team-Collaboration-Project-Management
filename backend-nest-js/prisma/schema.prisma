@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+ 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  name         String
+  email        String    @unique
+  passwordHash String?
+  role         String
+  avatar       String?
+
+  refreshToken String?
+
+  projects     Project[] @relation("ProjectMembers")
+  tasks        Task[]    @relation("TaskAssignee")
+  messages     Message[]
+  files        File[]
+  createdProjects Project[] @relation("ProjectCreator")
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  createdBy   Int
+  creator     User      @relation("ProjectCreator", fields: [createdBy], references: [id])
+  members     User[]    @relation("ProjectMembers")
+  tasks       Task[]
+  messages    Message[]
+  files       File[]
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  status      String
+  priority    String?
+  dueDate     DateTime?
+  assigneeId  Int?
+  assignee    User?    @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  projectId   Int
+  project     Project  @relation(fields: [projectId], references: [id])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  senderId  Int
+  sender    User     @relation(fields: [senderId], references: [id])
+  projectId Int
+  project   Project  @relation(fields: [projectId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model File {
+  id         Int      @id @default(autoincrement())
+  fileName   String
+  url        String
+  uploadedBy Int
+  uploader   User     @relation(fields: [uploadedBy], references: [id])
+  projectId  Int
+  project    Project  @relation(fields: [projectId], references: [id])
+}
