@@ -1,4 +1,3 @@
-"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,47 +7,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+
+interface LoginFormProps extends React.ComponentProps<"div"> {
+  email: string;
+  setEmail: (email: string) => void;
+  password: string;
+  setPassword: (password: string) => void;
+  handleLogin: (e: React.FormEvent) => void;
+  handleGoogleLogin: () => void;
+}
 
 export function LoginForm({
   className,
+  email,
+  setEmail,
+  password,
+  setPassword,
+  handleLogin,
+  handleGoogleLogin,
   ...props
-}: React.ComponentProps<"div">) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!res.ok) {
-        throw new Error("Invalid credentials");
-      }
-
-      const data = await res.json();
-
-      // store tokens in localStorage (or cookie if more secure)
-      localStorage.setItem("access_token", data.access_token);
-      localStorage.setItem("refresh_token", data.refresh_token);
-
-      router.push("/dashboard"); // go to dashboard
-    } catch (err) {
-      console.error("Login failed:", err);
-      alert("Login failed. Please check your credentials.");
-    }
-  };
-
+}: LoginFormProps) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -88,7 +67,7 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   required
-                />{" "}
+                />
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
@@ -97,9 +76,7 @@ export function LoginForm({
                 <Button
                   variant="outline"
                   className="w-full"
-                  onClick={() => {
-                    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
-                  }}
+                  onClick={handleGoogleLogin}
                 >
                   Login with Google
                 </Button>

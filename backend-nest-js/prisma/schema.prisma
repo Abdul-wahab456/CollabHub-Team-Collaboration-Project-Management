@@ -64,8 +64,8 @@ model File {
   id         Int      @id @default(autoincrement())
   fileName   String
   url        String
-  uploadedBy Int
-  uploader   User     @relation(fields: [uploadedBy], references: [id])
+  uploaderId Int
+  uploader   User     @relation(fields: [uploaderId], references: [id])
   projectId  Int
   project    Project  @relation(fields: [projectId], references: [id])
 }

@@ -1,27 +1,32 @@
-"use client"
-import type React from "react"
-import { useState } from "react"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
+import type React from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
-export default function SignupFormDemo() {
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [role, setRole] = useState("")
+interface SignupFormProps {
+  password: string;
+  setPassword: (password: string) => void;
+  confirmPassword: string;
+  setConfirmPassword: (confirmPassword: string) => void;
+  role: string;
+  setRole: (role: string) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!")
-      return
-    }
-    console.log("Form submitted")
-  }
-
+export default function SignupFormDemo({
+  password,
+  setPassword,
+  confirmPassword,
+  setConfirmPassword,
+  role,
+  setRole,
+  handleSubmit,
+}: SignupFormProps) {
   return (
     <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
-      <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">Welcome to Aceternity</h2>
+      <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
+        Welcome to Aceternity
+      </h2>
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         Login if you can because we don&apos;t have a login flow yet
       </p>
@@ -29,17 +34,12 @@ export default function SignupFormDemo() {
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="name">Name</Label>
-          <Input id="name" placeholder="Tyler Durden" type="text" />
+          <Input id="name" type="text" />
         </LabelInputContainer>
 
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
-        </LabelInputContainer>
-
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="avatar">Avatar (Optional)</Label>
-          <Input id="avatar" placeholder="Upload your profile picture" type="file" accept="image/*" />
+          <Input id="email" type="email" />
         </LabelInputContainer>
 
         <LabelInputContainer className="mb-4">
@@ -51,8 +51,8 @@ export default function SignupFormDemo() {
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-800"
           >
             <option value="">Select a role</option>
-            <option value="team-member">Team Member</option>
-            <option value="project-manager">Project Manager</option>
+            <option value="TeamMember">Team Member</option>
+            <option value="ProjectManager">Project Manager</option>
           </select>
         </LabelInputContainer>
 
@@ -60,7 +60,6 @@ export default function SignupFormDemo() {
           <Label htmlFor="password">Password</Label>
           <Input
             id="password"
-            placeholder="••••••••"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -71,14 +70,19 @@ export default function SignupFormDemo() {
           <Label htmlFor="confirmpassword">Confirm password</Label>
           <Input
             id="confirmpassword"
-            placeholder="••••••••"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           {confirmPassword && (
-            <span className={`text-xs mt-1 ${password === confirmPassword ? "text-green-600" : "text-red-600"}`}>
-              {password === confirmPassword ? "Passwords match" : "Passwords do not match"}
+            <span
+              className={`text-xs mt-1 ${
+                password === confirmPassword ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {password === confirmPassword
+                ? "Passwords match"
+                : "Passwords do not match"}
             </span>
           )}
         </LabelInputContainer>
@@ -106,7 +110,7 @@ export default function SignupFormDemo() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
 const BottomGradient = () => {
@@ -115,15 +119,19 @@ const BottomGradient = () => {
       <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
       <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
     </>
-  )
-}
+  );
+};
 
 const LabelInputContainer = ({
   children,
   className,
 }: {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }) => {
-  return <div className={cn("flex w-full flex-col space-y-2", className)}>{children}</div>
-}
+  return (
+    <div className={cn("flex w-full flex-col space-y-2", className)}>
+      {children}
+    </div>
+  );
+};

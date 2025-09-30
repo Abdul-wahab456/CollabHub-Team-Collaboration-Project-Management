@@ -1,12 +1,12 @@
 import { Header } from "../components/header"
-import { HeroSection } from "../components/hero-section"
+import { LandingPage } from "../components/homepage/landing-page";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        <HeroSection />
+        <LandingPage />
       </main>
     </div>
   )

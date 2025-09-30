@@ -1,5 +1,14 @@
-import { Controller, Post, Body, UsePipes, Get, UseGuards, Req, Res } from '@nestjs/common';
-import type { Response } from "express";
+import {
+  Controller,
+  Post,
+  Body,
+  UsePipes,
+  Get,
+  UseGuards,
+  Req,
+  Res,
+} from '@nestjs/common';
+import type { Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { LoginValidationPipe } from './pipes/login-validation.pipe';
@@ -32,24 +41,20 @@ export class AuthController {
   async refresh(@Body() body: { userId: number; refreshToken: string }) {
     return this.authService.refreshTokens(body.userId, body.refreshToken);
   }
-  @Get('google')
-  @UseGuards(AuthGuard('google'))
-  async googleAuth() {
-  }
+
+@Get('google')
+@UseGuards(AuthGuard('google'))
+async googleAuth(@Req() req, @Res() res: Response) {}
+
 
   @Get('google/redirect')
   @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(@Req() req,@Res() res: Response) {
-      const user = req.user; // comes from GoogleStrategy.validate
-      const tokens = await this.authService.getTokens(user.id, user.email);
-      await this.authService.updateRefreshToken(user.id, tokens.refresh_token);
-    // return {
-    //   message: 'User information from Google',
-    //   user: req.user,
-    // };
+  async googleAuthRedirect(@Req() req, @Res() res: Response) {
+    const user = req.user; // comes from GoogleStrategy.validate
+    const tokens = await this.authService.getTokens(user.id, user.email);
+    await this.authService.updateRefreshToken(user.id, tokens.refresh_token);
     return res.redirect(
-  `http://localhost:3000/dashboard?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`
-);
-
+      `${process.env.FRONTEND_URL}/auth/google?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`
+    );
   }
 }

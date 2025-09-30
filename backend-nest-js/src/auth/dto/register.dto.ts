@@ -8,8 +8,8 @@ export class RegisterDto {
   email: string;
 
   @MinLength(6)
-  password: string; // plain password, we’ll hash it
+  password: string;
 
   @IsNotEmpty()
-  role: string; // e.g. "admin" | "manager" | "member"
+  role: string; 
 }

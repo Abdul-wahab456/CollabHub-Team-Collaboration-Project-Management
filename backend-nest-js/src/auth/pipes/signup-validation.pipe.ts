@@ -9,7 +9,9 @@ export class SignupValidationPipe implements PipeTransform {
     }
 
     let { name, email, password, role } = value;
-
+    if (!role) {
+      role = 'Team Member';
+    }
     // Trim whitespace
     name = typeof name === 'string' ? name.trim() : name;
     email = typeof email === 'string' ? email.trim().toLowerCase() : email;
@@ -37,9 +39,11 @@ export class SignupValidationPipe implements PipeTransform {
     }
 
     // Role validation
-    const allowedRoles = ['admin', 'Project Manager', 'Team Member'];
+    const allowedRoles = ['Project Manager', 'Team Member'];
     if (!role || !allowedRoles.includes(role)) {
-      throw new BadRequestException(`Role must be one of: ${allowedRoles.join(', ')}`);
+      throw new BadRequestException(
+        `Role must be one of: ${allowedRoles.join(', ')}`,
+      );
     }
 
     return {

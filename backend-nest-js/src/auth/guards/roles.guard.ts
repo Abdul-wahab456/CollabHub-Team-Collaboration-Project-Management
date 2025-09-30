@@ -1,4 +1,3 @@
-// src/auth/roles.guard.ts
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from './roles.decorator';
@@ -10,14 +9,17 @@ export class RolesGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
+      context.getHandler(), // get the method using admin
+      context.getClass(), // tell admin or user
     ]);
     if (!requiredRoles) {
       return true; // no roles required
     }
-
+    
     const { user } = context.switchToHttp().getRequest();
     return requiredRoles.includes(user.role);
   }
 }
+
+// Can Activate is check is allow then continue otherwise block the request
+//Interface means in typescript this is rule or contract must exists

@@ -17,18 +17,18 @@
   --secondary-foreground: oklch(1 0 0); /* White text on secondary */
   --muted: oklch(0.97 0 0); /* Light gray muted */
   --muted-foreground: oklch(0.35 0 0); /* Dark gray muted text */
-  --accent: oklch(0.65 0.12 160); /* Emerald-500 accent */
+  --accent: oklch(37.491% 0.02858 164.352); /* Emerald-500 accent */
   --accent-foreground: oklch(1 0 0); /* White text on accent */
   --destructive: oklch(0.577 0.245 27.325); /* Red for destructive actions */
   --destructive-foreground: oklch(1 0 0); /* White text on destructive */
   --border: oklch(0.9 0 0); /* Light border */
   --input: oklch(1 0 0); /* White input background */
   --ring: oklch(0.55 0.15 160 / 0.5); /* Emerald focus ring */
-  --chart-1: oklch(0.55 0.15 160); /* Emerald chart color */
-  --chart-2: oklch(0.65 0.12 160); /* Light emerald chart color */
-  --chart-3: oklch(0.35 0 0); /* Dark gray chart color */
-  --chart-4: oklch(0.97 0 0); /* Light gray chart color */
-  --chart-5: oklch(0.577 0.245 27.325); /* Red chart color */
+  --chart-1: oklch(0.55 0.15 160);
+  --chart-2: oklch(0.65 0.12 160);
+  --chart-3: oklch(62.951% 0.25606 29.026);
+  --chart-4: oklch(0.97 0 0);
+  --chart-5: oklch(0.577 0.245 27.325);
   --radius: 0.5rem;
   --sidebar: oklch(0.97 0 0);
   --sidebar-foreground: oklch(0.35 0 0);
@@ -41,38 +41,59 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.65 0.12 160);
-  --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.65 0.12 160);
-  --chart-2: oklch(0.55 0.15 160);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.65 0.12 160);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Rich deep backgrounds with subtle warm undertones */
+  --background: oklch(27.232% 0.00797 264.468);
+  --foreground: oklch(98% 0.005 240);
+
+  /* Cards with slight elevation and warmth */
+  --card: oklch(38.666% 0.00004 271.152);
+  --card-foreground: oklch(96% 0.005 240);
+
+  /* Popovers with enhanced contrast */
+  --popover: oklch(41.654% 0.00005 271.152);
+  --popover-foreground: oklch(96.592% 0.00261 230.414);
+
+  /* Vibrant purple-blue primary with electric feel */
+  --primary: oklch(68% 0.18 285);
+  --primary-foreground: oklch(12% 0.02 285);
+
+  /* Sophisticated secondary with purple undertones */
+  --secondary: oklch(25% 0.03 270);
+  --secondary-foreground: oklch(95% 0.01 270);
+
+  /* Muted tones with subtle color temperature */
+  --muted: oklch(15.362% 0.00273 248.155);
+  --muted-foreground: oklch(72% 0.015 250);
+
+  /* Accent with cyan-blue energy */
+  --accent: oklch(28% 0.04 200);
+  --accent-foreground: oklch(96% 0.01 200);
+
+  /* Modern red for destructive actions */
+  --destructive: oklch(58% 0.15 20);
+  --destructive-foreground: oklch(98% 0.005 20);
+
+  /* Subtle borders and inputs */
+  --border: oklch(56.584% 0.00006 271.152);
+  --input: oklch(100% 0.00011 271.152);
+  --ring: oklch(68% 0.18 285);
+
+  /* Beautiful chart colors with good contrast */
+  --chart-1: oklch(68% 0.18 285); /* Primary purple-blue */
+  --chart-2: oklch(65% 0.16 320); /* Magenta-purple */
+  --chart-3: oklch(75% 0.14 160); /* Mint green */
+  --chart-4: oklch(70% 0.12 60); /* Golden yellow */
+  --chart-5: oklch(66% 0.15 25); /* Coral red */
+
+  /* Sidebar with slightly different tone */
+  --sidebar: oklch(100% 0.00011 271.152);
+  --sidebar-foreground: oklch(96% 0.005 250);
+  --sidebar-primary: oklch(68% 0.18 285);
+  --sidebar-primary-foreground: oklch(12% 0.02 285);
+  --sidebar-accent: oklch(24% 0.03 260);
+  --sidebar-accent-foreground: oklch(94% 0.01 260);
+  --sidebar-border: oklch(22% 0.02 250);
+  --sidebar-ring: oklch(68% 0.18 285);
 }
 
 @theme inline {
@@ -115,7 +136,25 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
+/* Recharts tooltip dark mode styles */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: hsl(var(--popover)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -2px rgb(0 0 0 / 0.05) !important;
+}
 
+.recharts-tooltip-label {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+
+.recharts-tooltip-item {
+  color: hsl(var(--foreground)) !important;
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;

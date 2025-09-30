@@ -6,22 +6,23 @@ import { DatabaseModule } from 'src/prisma/prisma.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { PassportModule } from '@nestjs/passport';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './guards/roles.guard';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { UserService } from 'src/user/user.service';
 
 @Module({
   imports: [
-    JwtModule.register({
+    // Tells how to validate & decode JWTs tokens
+    JwtModule.register({ 
       secret: process.env.JWT_SECRET,
-       // secret for signing tokens
     }),
     DatabaseModule,
     PassportModule.register({ session: false }),
   ],
-  providers: [AuthService, GoogleStrategy,],
+  providers: [AuthService, GoogleStrategy, JwtStrategy,UserService],
   controllers: [AuthController],
 })
 export class AuthModule {
+  // middleware apply for specific routes
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware).forRoutes('auth/login', 'auth/signup'); // apply only to login & signup routes
   }

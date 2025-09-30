@@ -23,7 +23,7 @@ export class LoginValidationPipe implements PipeTransform {
     if (!password || typeof password !== 'string') {
       throw new BadRequestException('Password must be a string');
     }
-    
+
     if (password.length < 6) {
       throw new BadRequestException('Password must be at least 6 characters');
     }

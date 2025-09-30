@@ -1,30 +1,68 @@
-// import { Injectable } from '@nestjs/common';
-// import { InjectRepository } from '@nestjs/typeorm';
-// import { Repository } from 'typeorm';
-// import { User } from './entities/user.entity';
-// import * as bcrypt from 'bcryptjs';
+// user.service.ts
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 
-// @Injectable()
-// export class UserService {
-//   constructor(
-//     @InjectRepository(User)
-//     private userRepository: Repository<User>,
-//   ) {}
+@Injectable()
+export class UserService {
+  constructor(
+    private readonly prisma: PrismaService,
+  ) {}
+  async getOverview(userId: number) {
+  // run all queries in parallel
+  const [
+    TeamMembers,
+    ProjectManager,
+    InProgress,
+    Completed,
+    ToDo,
+  ] = await Promise.all([
+    this.prisma.user.count({ where: { role: 'TeamMember' } }),
+    this.prisma.user.count({ where: { role: 'ProjectManager' } }),
+    this.prisma.task.count({ where: { status: 'InProgress', assigneeId: userId } }),
+    this.prisma.task.count({ where: { status: 'Completed', assigneeId: userId } }),
+    this.prisma.task.count({ where: { status: 'ToDo', assigneeId: userId } }),
+  ]);
 
-//   async findByEmail(email: string): Promise<User | undefined> {
-//     return this.userRepository.findOne({ where: { email } });
-//   }
+  return {
+    kpis: {
+      TeamMembers,
+      ProjectManager,
+      InProgress,
+      Completed,
+      ToDo,
+    },
+  };
+}
+// user.service.ts
 
-//   async create(email: string, password: string, firstName: string, lastName: string): Promise<User> {
-//     const hashedPassword = await bcrypt.hash(password, 10);
-    
-//     const user = this.userRepository.create({
-//       email,
-//       password: hashedPassword,
-//       firstName,
-//       lastName,
-//     });
-
-//     return this.userRepository.save(user);
-//   }
-// }
+async getUserProjects(userId: number) {
+  return this.prisma.project.findMany({
+    where: {
+      members: {
+        some: {
+          id: userId
+        }
+      }
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+    }
+  });
+}
+async getAllUsers() {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatar: true,
+        role: true,
+      },
+      orderBy: {
+        name: 'asc',
+      },
+    });
+  }
+}
