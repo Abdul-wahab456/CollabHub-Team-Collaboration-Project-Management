@@ -1,5 +1,7 @@
 # CollabHub - Team Collaboration & Project Management
 
+https://www.notion.so/Collab-Hub-Project-27319055721880b2b7b4ca9cc4629788?source=copy_link
+
 CollabHub is a full-stack web application for modern team collaboration and project management. The platform enables users to manage projects, assign tasks, communicate in real time, and share files with a secure, scalable architecture. Built with **Next.js** and **NestJS**, CollabHub leverages modern development practices and powerful cloud integrations.
 
 ---
